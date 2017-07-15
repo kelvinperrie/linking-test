@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>too rude</title>
+        <style>
+        #info-banner {
+            font-family: Verdana, Geneva, sans-serif;
+            font-size: 100px;
+            height: 120px;
+            width: 800px;
+            margin: auto;
+            text-align: center;
+            letter-spacing: 20px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        #kissing-area {
+            width: 800px;
+            height: 150px;
+            margin: auto;
+            position: relative;
+        }
+        .mia-hog{
+            height: 142px;
+            width: 186px;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <div id="info-banner">
+
+        </div>
+        <div id="kissing-area">
+            <img class="mia-hog left" src="left.jpg" alt="hog on the left" />
+            <img class="mia-hog right" src="right.jpg" alt="hog on the right" />
+        </div>
+        <script type="text/javascript">
+            var movementSpeed = 3000;
+            var characterDelay = 1000;
+            var restartDelay = 5000;
+            function reset() {
+                $(".left").css({left: "0px", right: "auto"});
+                $(".right").css({right: "0px", left: "auto"});
+                $("#info-banner").text("");
+            }
+            function moveToCenter() {
+                var center = $("#kissing-area").width() / 2;
+                $(".left").css({left: "auto"});
+                $(".left").animate({
+                    right: center + "px"
+                }, movementSpeed);
+                $(".right").animate({
+                    left: center + "px"
+                }, movementSpeed, "swing", function() { setTimeout(function() { explicit(0);}, characterDelay)})
+            }
+            function explicit(currentIteration) {
+                $("#info-banner").text($("#info-banner").text()+"X");
+                currentIteration++;
+                if(currentIteration >= 5) { setTimeout(function() {hogAction();},restartDelay); return; }
+                setTimeout(function() { explicit(currentIteration);}, characterDelay);
+            }
+
+            function hogAction() {
+                reset();
+                moveToCenter();
+            }
+
+            hogAction();
+        </script>
+    </body>
+</html>
